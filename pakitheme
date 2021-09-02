@@ -82,14 +82,14 @@ theme_gtk_version=$(ls -1d "$theme_path"/* 2>/dev/null | grep -Po 'gtk-3\.\K\d+$
 
 # If using import clone whole dir not just gtk3
 if [[ -n "$theme_import" ]]; then
-  cp -a "$theme_path/" "$build_dir/files"
+  cp -a "$theme_path/../../AdMin/" "$build_dir/files" #include external dependency folder
 else
   cp -a "$theme_path/gtk-3.$theme_gtk_version/"* "$build_dir/files"
 fi
 
 # If using import create custom gtk.css file
 if [[ -n "$theme_import" ]]; then
-  echo "@import url('./$(basename "${theme_path}")/gtk-3.$theme_gtk_version/gtk.css');" >> "$build_dir/files/gtk.css"
+  echo "@import url('./AdMin/$(basename "${theme_path}")/gtk-3.$theme_gtk_version/gtk.css');" >> "$build_dir/files/gtk.css"
 fi
 
 mkdir -p "$build_dir/files/share/appdata"
